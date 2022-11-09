@@ -1,0 +1,11 @@
+.Rproj.user
+
+# R
+.Rhistory
+.Rapp.history
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+#Mac other
+.DS_Store
