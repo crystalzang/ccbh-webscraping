@@ -1,5 +1,5 @@
 ---
-title: "02_appointmetn_availability_map"
+title: "CCBH Mental Health Outpatient Appointment Availability Map"
 author: "Crystal Zang"
 date: '2023-02-02'
 output: html_document
@@ -9,15 +9,7 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## R Markdown
-
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
-
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
-
-
-
-```{r}
+```{r include=FALSE}
 library(readr)
 library(dplyr)
 library(tidyverse)
@@ -29,8 +21,7 @@ library(leafpop)
 data <- read.csv("data/data.csv")
 ```
 
-
-```{r}
+```{r echo=FALSE}
 data_plot <- data%>%
   filter(!is.na(long))%>%
   mutate( AppointmentAvailability = ifelse(liveperson_appt_available ==T, "Available(Live Person)", 
@@ -42,7 +33,7 @@ data_sf <- st_as_sf(data_plot, coords = c("long", "lat"))
 
 st_crs(data_sf) <- 4326 # we can use EPSG as numeric here
 
-mapviewOptions()
+#mapviewOptions()
 
 mapview(data_sf, xcol = "long", ycol = "lat",
         zcol = "AppointmentAvailability" , 
@@ -51,4 +42,3 @@ mapview(data_sf, xcol = "long", ycol = "lat",
         crs = 4326, grid = FALSE)
 
 ```
-
